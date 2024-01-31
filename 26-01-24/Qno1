@@ -1,0 +1,47 @@
+#include<iostream>
+#include<map>
+using namespace std;
+int sumOfDigit(int n)
+{
+    int sum=0;
+    while(n)
+    {
+        sum+=n%10;
+        n/=10;
+    }
+    return sum;
+}
+int main()
+{
+    int N;
+    cin>>N;
+    int i;
+    map<int,int>mp;
+    //loop for the factors
+    for(i=1;i*i<=N;i++)
+    {
+        //checking if i is factor of N
+        if(N%i==0)
+        {
+           //we will get 2 factors here i and N/i
+           //mapping i and N/i
+         
+           mp[sumOfDigit(i)] = i;
+           mp[sumOfDigit(N/i)] = N/i;
+        }
+    }
+    map<int,int>::iterator it;
+    int m=0,ans;
+    //iterating through map
+    for(it=mp.begin();it!=mp.end();++it)
+    {
+        //cout<first<<" "<second<<endl;
+        //checking the maximum sum
+        if(m < it->first)
+        {
+            ans = it->second;
+            m = it->first;
+        }
+    }
+    cout<<ans<<endl;
+}
